@@ -1,11 +1,14 @@
 <template>
+  <TheHeader title="VueJS 3: Advanced Components Practice" />
   <StoredResource :resources="storedResources" />
 </template>
 
 <script>
 import StoredResource from './components/learning-resources/StoredResources';
+import TheHeader from './components/layout/TheHeader';
 export default {
   components: {
+    TheHeader,
     StoredResource,
   },
   data() {

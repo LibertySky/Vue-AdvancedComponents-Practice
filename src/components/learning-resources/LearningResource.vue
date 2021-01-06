@@ -1,17 +1,17 @@
 <template>
   <li>
-    <div>
+    <base-card>
       <header>
         <h3>{{ title }}</h3>
-        <button>Delete</button>
+        <button>Remove</button>
       </header>
-    </div>
-    <p>{{ description }}</p>
-    <nav>
-      <a :href="link" target="_blank" rel="noopener noreferrer"
-        >Visit resource</a
-      >
-    </nav>
+      <p>{{ description }}</p>
+      <nav>
+        <a :href="link" target="_blank" rel="noopener noreferrer"
+          >Visit resource</a
+        >
+      </nav>
+    </base-card>
   </li>
 </template>
 
@@ -23,6 +23,7 @@ export default {
 
 <style scoped>
 li {
+  list-style: none;
   margin: auto;
   max-width: 40rem;
 }
