@@ -1,34 +1,15 @@
 <template>
   <TheHeader title="VueJS 3: Advanced Components Practice" />
-  <StoredResource :resources="storedResources" />
+  <TheReseources />
 </template>
 
 <script>
-import StoredResource from './components/learning-resources/StoredResources';
 import TheHeader from './components/layout/TheHeader';
+import TheReseources from './components/learning-resources/TheResources';
 export default {
   components: {
     TheHeader,
-    StoredResource,
-  },
-  data() {
-    return {
-      storedResources: [
-        {
-          id: 'official-guide',
-          title: 'Official Guide',
-          description: 'The official Vue.Js documentation',
-          link: 'https://v3.vuejs.org/guide/introduction.html',
-        },
-        {
-          id: 'vue-mastery',
-          title: 'Vue Mastery',
-          description:
-            'As the ultimate resource for Vue.js developers, Vue Mastery produces weekly lessons so you can learn what you need to succeed as a Vue.js Developer.',
-          link: 'https://www.vuemastery.com/',
-        },
-      ],
-    };
+    TheReseources,
   },
 };
 </script>
