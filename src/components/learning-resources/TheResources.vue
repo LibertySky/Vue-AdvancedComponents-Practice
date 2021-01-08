@@ -1,38 +1,47 @@
 <template>
   <base-card>
-    <base-button @click="setSelectedTab('StoredResources')">
-      Stored Resources
-    </base-button>
-    <base-button @click="setSelectedTab('AddResource')">
-      Add Resource3
-    </base-button>
+    <div class="tabs">
+      <base-button
+        @click="setSelectedTab('stored-resources')"
+        :mode="storedResButtonMode"
+        >Stored Resources</base-button
+      >
+      <base-button
+        @click="setSelectedTab('add-resource')"
+        :mode="addResButtonMode"
+        >Add Resource</base-button
+      >
+    </div>
   </base-card>
-  <component :is="setSelectedTab"></component>
+  <keep-alive>
+    <component :is="selectedTab"></component>
+  </keep-alive>
 </template>
 
 <script>
-import StoredResources from './StoredResources';
-import AddResource from './AddResource';
+import StoredResources from './StoredResources.vue';
+import AddResource from './AddResource.vue';
 
 export default {
-  components: { StoredResources, AddResource },
-
+  components: {
+    StoredResources,
+    AddResource,
+  },
   data() {
     return {
-      selectedTab: 'StoredResources',
+      selectedTab: 'stored-resources',
       storedResources: [
         {
           id: 'official-guide',
           title: 'Official Guide',
-          description: 'The official Vue.Js documentation',
-          link: 'https://v3.vuejs.org/guide/introduction.html',
+          description: 'The official Vue.js documentation.',
+          link: 'https://vuejs.org',
         },
         {
-          id: 'vue-mastery',
-          title: 'Vue Mastery',
-          description:
-            'As the ultimate resource for Vue.js developers, Vue Mastery produces weekly lessons so you can learn what you need to succeed as a Vue.js Developer.',
-          link: 'https://www.vuemastery.com/',
+          id: 'google',
+          title: 'Google',
+          description: 'Learn to google...',
+          link: 'https://google.org',
         },
       ],
     };
@@ -40,12 +49,32 @@ export default {
   provide() {
     return {
       resources: this.storedResources,
+      addResource: this.addResource,
     };
+  },
+  computed: {
+    storedResButtonMode() {
+      return this.selectedTab === 'stored-resources' ? null : 'flat';
+    },
+    addResButtonMode() {
+      return this.selectedTab === 'add-resource' ? null : 'flat';
+    },
   },
   methods: {
     setSelectedTab(tab) {
       this.selectedTab = tab;
     },
+    addResource(title, description, url) {
+      const newResource = {
+        id: new Date().toISOString(),
+        title: title,
+        description: description,
+        url: url,
+      };
+      this.storedResources.unshift(newResource);
+      this.selectedTab = 'stored-resources';
+    },
   },
 };
 </script>
+

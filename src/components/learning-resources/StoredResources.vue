@@ -1,19 +1,24 @@
 <template>
-  <LearningResource
-    v-for="item in resources"
-    :key="item.id"
-    :title="item.title"
-    :description="item.description"
-    :link="item.link"
-  />
+  <ul>
+    <learning-resource
+      v-for="res in resources"
+      :key="res.id"
+      :title="res.title"
+      :description="res.description"
+      :link="res.link"
+    ></learning-resource>
+  </ul>
 </template>
 
 <script>
-import LearningResource from './LearningResource';
+import LearningResource from './LearningResource.vue';
+
 export default {
-  components: { LearningResource },
   inject: ['resources'],
-};
+  components: {
+    LearningResource
+  }
+}
 </script>
 
 <style scoped>
