@@ -1,4 +1,16 @@
 <template>
+  <base-modal
+    v-if="inputIsInvalid"
+    title="Input is invalid"
+    @close="closeModal"
+  >
+    <template #default>
+      <p>All inputs are required!</p>
+    </template>
+    <template #actions>
+      <base-button @click="closeModal">Okay</base-button>
+    </template>
+  </base-modal>
   <base-card>
     <h2>Add Resource</h2>
     <form @submit.prevent="submitData">
@@ -27,15 +39,35 @@
 </template>
 
 <script>
+import BaseButton from '../UI/BaseButton.vue';
+import BaseModal from '../UI/BaseModal.vue';
 export default {
+  components: { BaseModal, BaseButton },
   inject: ['addResource'],
+  data() {
+    return {
+      inputIsInvalid: false,
+    };
+  },
   methods: {
     submitData() {
       const enteredTitle = this.$refs.inputTitle.value;
       const enteredDesc = this.$refs.inputDescription.value;
       const enteredLink = this.$refs.inputUrl.value;
 
+      if (
+        enteredTitle.trim() === '' ||
+        enteredDesc.trim() === '' ||
+        enteredLink.trim() === ''
+      ) {
+        this.inputIsInvalid = true;
+        return;
+      }
+
       this.addResource(enteredTitle, enteredDesc, enteredLink);
+    },
+    closeModal() {
+      this.inputIsInvalid = false;
     },
   },
 };
